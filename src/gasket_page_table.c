@@ -54,8 +54,12 @@
 #include <linux/vmalloc.h>
 
 #if __has_include(<linux/dma-buf.h>)
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 13, 0)
 MODULE_IMPORT_NS(DMA_BUF);
-#endif
+#else
+MODULE_IMPORT_NS("DMA_BUF");
+#endif /* LINUX_VERSION_CODE < KERNEL_VERSION(6, 13, 0) */
+#endif /* __has_include(<linux/dma-buf.h>) */
 
 #include "gasket_constants.h"
 #include "gasket_core.h"
